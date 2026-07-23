@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 py-4 text-center text-sm text-gray-500">
-                &copy; {{ date('Y') }} Sipenkar — Dinas Kependudukan dan Pencatatan Sipil.
+                &copy; {{ date('Y') }} Registrasi Pelayanan Dukcapil — Dinas Kependudukan dan Pencatatan Sipil Kota Palembang.
             </div>
         </footer>
     </div>

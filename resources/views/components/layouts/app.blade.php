@@ -50,7 +50,7 @@
 
         <footer class="border-t border-gray-200 bg-white">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 text-center text-sm text-gray-500">
-                &copy; {{ date('Y') }} Sipenkar — Dinas Kependudukan dan Pencatatan Sipil.
+                &copy; {{ date('Y') }} Registrasi Pelayanan Dukcapil — Dinas Kependudukan dan Pencatatan Sipil Kota Palembang.
             </div>
         </footer>
     </div>
