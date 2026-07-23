@@ -21,7 +21,7 @@ use App\Models\Citizen;
 use App\Models\Submission;
 ```
 
-Cari `TODO(Magang 2 - Verifikasi Admin)` di method `index()`. Ganti isinya jadi:
+Cari `TODO(Magang 2 - Verifikasi Admin)` di method `index()` (Ctrl+F, ketik `ambil daftar semua permohonan`). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `]);` paling bawah (jangan sentuh `{` di baris sebelum komentar dan `}` di baris paling akhir method) — lalu ketik/paste kode berikut menggantikannya:
 
 ```php
 $query = Submission::with('citizen')->latest();
@@ -50,7 +50,7 @@ return view('admin.verifikasi.index', [
 
 ## Langkah 2 — Detail Satu Permohonan (`show`)
 
-Cari `TODO(Magang 2 - Verifikasi Admin)` di method `show()`. Ganti isinya jadi:
+Cari `TODO(Magang 2 - Verifikasi Admin)` di method `show()` (Ctrl+F, ketik `ambil satu permohonan (dengan relasi`). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `abort(404);` — lalu ketik/paste kode berikut:
 
 ```php
 $submission = Submission::with(['citizen', 'files'])
@@ -74,7 +74,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 ```
 
-Cari `TODO(Magang 2 - Verifikasi Admin)` di method `updateStatus()`. Ganti isinya jadi:
+Cari `TODO(Magang 2 - Verifikasi Admin)` di method `updateStatus()` (Ctrl+F, ketik `validasi status baru`). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `return back()->with(...)` — lalu ketik/paste kode berikut:
 
 ```php
 $submission = Submission::where('ticket_number', $ticket)->firstOrFail();

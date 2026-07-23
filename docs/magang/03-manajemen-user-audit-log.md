@@ -13,7 +13,7 @@ Tampilan halamannya sudah jadi di `resources/views/admin/users/` dan `resources/
 
 ## Langkah 1 — Daftar Semua Warga (`UserController::index`)
 
-Buka `app/Http/Controllers/Admin/UserController.php`. Cari `TODO(Magang 3 - Manajemen User)` di method `index()`. Ganti isinya jadi:
+Buka `app/Http/Controllers/Admin/UserController.php`. Cari `TODO(Magang 3 - Manajemen User)` di method `index()` (Ctrl+F, ketik `ambil daftar semua warga`). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `]);` paling bawah (jangan sentuh `{` di baris sebelum komentar dan `}` di baris paling akhir method) — lalu ketik/paste kode berikut menggantikannya:
 
 ```php
 $query = Citizen::query()->latest();
@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 ```
 
-Cari `TODO(Magang 3 - Manajemen User)` di method `resetPassword()`. Ganti isinya jadi:
+Cari `TODO(Magang 3 - Manajemen User)` di method `resetPassword()` (Ctrl+F, ketik `minta admin memasukkan ulang password-nya sendiri` — akan ada 2 hasil, pastikan pilih yang di method `resetPassword`). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `return back()->with(...)` — lalu ketik/paste kode berikut:
 
 ```php
 $admin = Auth::guard('admin')->user();
@@ -83,7 +83,7 @@ return redirect()
 
 ## Langkah 3 — Buka Kunci Akun (`unlock`)
 
-Cari `TODO(Magang 3 - Manajemen User)` di method `unlock()`. Ganti isinya jadi:
+Cari `TODO(Magang 3 - Manajemen User)` di method `unlock()` (hasil ke-2 dari pencarian sebelumnya). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `return back()->with(...)` — lalu ketik/paste kode berikut:
 
 ```php
 $admin = Auth::guard('admin')->user();

@@ -26,7 +26,18 @@ use Illuminate\Validation\Rule;
 ```
 *(`use` itu seperti "import" — bilang ke PHP bahwa kita mau pakai class-class itu di file ini.)*
 
-Lalu cari `TODO(Magang 1 - Pengajuan Dokumen)` yang ada di dalam method `store()`. Ganti isi method `store()` (di antara `{` dan `}`) dengan kode ini:
+Lalu cari `TODO(Magang 1 - Pengajuan Dokumen)` di dalam method `store()` (pakai Ctrl+F, ketik `Pengajuan Dokumen): validasi`). Kamu akan lihat 4 baris seperti ini:
+
+```php
+// TODO(Magang 1 - Pengajuan Dokumen): validasi input sesuai $jenis layanan
+// (kk / akta-lahir / akta-mati), simpan ke tabel submissions + submission_files,
+// lalu redirect ke halaman riwayat dengan nomor tiketnya.
+// Panduan lengkap ada di docs/magang/01-pengajuan-dokumen.md
+
+return back()->with('status', 'Fitur pengajuan dokumen sedang dikerjakan tim magang.');
+```
+
+**Hapus semua baris itu** (4 baris komentar `//` beserta baris `return back()->with(...)` di bawahnya — jangan sentuh baris `{` dan `abort_unless(...)` di atasnya, biarkan tetap ada), lalu di tempat yang sama, ketik/paste kode berikut:
 
 ```php
 [$formFields, $fileFields] = match ($jenis) {
@@ -133,7 +144,7 @@ return redirect()
 
 ## Langkah 2 — Riwayat Permohonan (`riwayat`)
 
-Cari `TODO(Magang 1 - Pengajuan Dokumen)` di method `riwayat()`. Ganti isinya jadi:
+Cari `TODO(Magang 1 - Pengajuan Dokumen)` di method `riwayat()` (Ctrl+F, ketik `ambil daftar permohonan`). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `]);` paling bawah (jangan sentuh `{` di baris sebelum komentar dan `}` di baris paling akhir method, biarkan tetap ada) — lalu ketik/paste kode berikut menggantikannya:
 
 ```php
 $query = Auth::guard('citizen')->user()->submissions()->latest();
@@ -157,7 +168,7 @@ return view('warga.permohonan.riwayat', [
 
 ## Langkah 3 — Detail Satu Permohonan (`show`)
 
-Cari `TODO(Magang 1 - Pengajuan Dokumen)` di method `show()`. Ganti isinya jadi:
+Cari `TODO(Magang 1 - Pengajuan Dokumen)` di method `show()` (Ctrl+F, ketik `ambil satu permohonan milik`). **Hapus semua isi method itu** — dari baris komentar `// TODO(...)` sampai baris `abort(404);` (jangan sentuh `{` dan `}` pembungkusnya) — lalu ketik/paste kode berikut:
 
 ```php
 $submission = Auth::guard('citizen')->user()
