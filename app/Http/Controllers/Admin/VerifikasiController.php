@@ -3,100 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AuditLog;
-use App\Models\Citizen;
-use App\Models\Submission;
-use App\Models\SubmissionFile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class VerifikasiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Submission::with('citizen')->latest();
-
-        if ($status = $request->query('status')) {
-            $query->where('status', $status);
-        }
-
-        if ($search = $request->query('cari')) {
-            if (ctype_digit($search) && strlen($search) === 16) {
-                $citizen = Citizen::findByNik($search);
-                $query->where('citizen_id', $citizen?->id ?? 0);
-            } else {
-                $query->where('ticket_number', 'like', "%{$search}%");
-            }
-        }
+        // TODO(Magang 2 - Verifikasi Admin): ambil daftar semua permohonan (semua warga),
+        // dukung filter status & pencarian (nomor tiket, atau NIK 16 digit lewat Citizen::findByNik()).
+        // Panduan lengkap ada di docs/magang/02-verifikasi-admin.md
 
         return view('admin.verifikasi.index', [
-            'submissions' => $query->get(),
-            'search' => $search ?? '',
-            'statusFilter' => $status ?? '',
+            'submissions' => collect(),
+            'search' => $request->query('cari', ''),
+            'statusFilter' => $request->query('status', ''),
         ]);
     }
 
     public function show(string $ticket)
     {
-        $submission = Submission::with(['citizen', 'files'])
-            ->where('ticket_number', $ticket)
-            ->firstOrFail();
+        // TODO(Magang 2 - Verifikasi Admin): ambil satu permohonan (dengan relasi citizen & files)
+        // berdasarkan nomor tiket ($ticket), lalu tampilkan detailnya untuk direview petugas.
+        // Panduan lengkap ada di docs/magang/02-verifikasi-admin.md
 
-        return view('admin.verifikasi.detail', compact('submission'));
+        abort(404);
     }
 
     public function updateStatus(Request $request, string $ticket)
     {
-        $submission = Submission::where('ticket_number', $ticket)->firstOrFail();
+        // TODO(Magang 2 - Verifikasi Admin): validasi status baru (IN_REVIEW/APPROVED/REJECTED)
+        // + catatan, update permohonan, simpan file hasil PDF jika APPROVED, dan catat ke AuditLog
+        // lewat AuditLog::record(). Panduan lengkap ada di docs/magang/02-verifikasi-admin.md
 
-        $validated = $request->validate([
-            'status' => ['required', 'in:IN_REVIEW,APPROVED,REJECTED'],
-            'catatan' => ['required_if:status,REJECTED', 'nullable', 'string', 'max:1000'],
-            'hasil_pdf' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
-        ]);
-
-        $admin = Auth::guard('admin')->user();
-
-        DB::transaction(function () use ($submission, $validated, $admin, $request) {
-            $submission->update([
-                'status' => $validated['status'],
-                'note' => $validated['catatan'] ?? null,
-                'reviewed_by' => $admin->id,
-                'reviewed_at' => now(),
-            ]);
-
-            if ($validated['status'] === 'APPROVED' && $request->hasFile('hasil_pdf')) {
-                $file = $request->file('hasil_pdf');
-                $storageKey = "submissions/{$submission->id}/result-".Str::uuid().'.pdf';
-                $file->storeAs('', $storageKey, 'local');
-
-                SubmissionFile::create([
-                    'submission_id' => $submission->id,
-                    'file_type' => 'result',
-                    'field_name' => 'hasil_pdf',
-                    'storage_key' => $storageKey,
-                    'original_name' => $file->getClientOriginalName(),
-                    'mime_type' => $file->getMimeType(),
-                    'size' => $file->getSize(),
-                    'uploaded_by_type' => 'admin',
-                    'uploaded_by_id' => $admin->id,
-                ]);
-            }
-
-            AuditLog::record(
-                $admin,
-                'update_submission_status',
-                'submission',
-                $submission->id,
-                "Tiket {$submission->ticket_number} → {$validated['status']}",
-                $request
-            );
-        });
-
-        return redirect()
-            ->route('admin.verifikasi.index')
-            ->with('status', "Status pengajuan {$ticket} berhasil diperbarui.");
+        return back()->with('status', 'Fitur verifikasi sedang dikerjakan tim magang.');
     }
 }
