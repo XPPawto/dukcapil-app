@@ -32,9 +32,30 @@
                 </div>
 
                 <div>
-                    <x-label for="tanggal_lahir" required>Tanggal Lahir</x-label>
-                    <x-input type="date" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
-                        required :error="$errors->first('tanggal_lahir')" />
+                    <x-label required>Tanggal Lahir</x-label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <select name="lahir_tanggal" required
+                            class="block w-full rounded-xl border-2 border-gray-300 px-3 py-3.5 text-lg text-gray-900 focus:outline-none focus:ring-3 focus:ring-brand-500/40 focus:border-brand-500">
+                            <option value="">Tanggal</option>
+                            @for($d = 1; $d <= 31; $d++)
+                                <option value="{{ $d }}" @selected(old('lahir_tanggal') == $d)>{{ $d }}</option>
+                            @endfor
+                        </select>
+                        <select name="lahir_bulan" required
+                            class="block w-full rounded-xl border-2 border-gray-300 px-3 py-3.5 text-lg text-gray-900 focus:outline-none focus:ring-3 focus:ring-brand-500/40 focus:border-brand-500">
+                            <option value="">Bulan</option>
+                            @foreach(['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'] as $i => $bulan)
+                                <option value="{{ $i + 1 }}" @selected(old('lahir_bulan') == $i + 1)>{{ $bulan }}</option>
+                            @endforeach
+                        </select>
+                        <select name="lahir_tahun" required
+                            class="block w-full rounded-xl border-2 border-gray-300 px-3 py-3.5 text-lg text-gray-900 focus:outline-none focus:ring-3 focus:ring-brand-500/40 focus:border-brand-500">
+                            <option value="">Tahun</option>
+                            @for($y = now()->year; $y >= now()->year - 100; $y--)
+                                <option value="{{ $y }}" @selected(old('lahir_tahun') == $y)>{{ $y }}</option>
+                            @endfor
+                        </select>
+                    </div>
                     <x-help-text>Harus sesuai dengan tanggal lahir pada NIK Anda.</x-help-text>
                     <x-input-error :message="$errors->first('tanggal_lahir')" />
                 </div>

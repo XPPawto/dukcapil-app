@@ -7,6 +7,7 @@ use App\Models\Citizen;
 use App\Rules\ValidNik;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
@@ -17,6 +18,28 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'lahir_tanggal' => ['required', 'integer', 'between:1,31'],
+            'lahir_bulan' => ['required', 'integer', 'between:1,12'],
+            'lahir_tahun' => ['required', 'integer', 'between:'.(now()->year - 100).','.now()->year],
+        ]);
+
+        [$tanggal, $bulan, $tahun] = [
+            (int) $request->lahir_tanggal,
+            (int) $request->lahir_bulan,
+            (int) $request->lahir_tahun,
+        ];
+
+        if (! checkdate($bulan, $tanggal, $tahun)) {
+            throw ValidationException::withMessages([
+                'tanggal_lahir' => 'Tanggal lahir yang dipilih tidak valid.',
+            ]);
+        }
+
+        $request->merge([
+            'tanggal_lahir' => sprintf('%04d-%02d-%02d', $tahun, $bulan, $tanggal),
+        ]);
+
         $validated = $request->validate([
             'nama_lengkap' => ['required', 'string', 'min:3', 'max:100', 'regex:/^[\pL\s\'\.\-]+$/u'],
             'nik' => ['required', new ValidNik],
