@@ -1,0 +1,21 @@
+@props(['variant' => 'primary', 'size' => 'lg', 'href' => '#'])
+
+@php
+$base = 'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition
+    focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2';
+
+$sizes = [
+    'lg' => 'px-6 py-4 text-lg min-h-[52px]',
+    'md' => 'px-5 py-3 text-base min-h-[44px]',
+];
+
+$variants = [
+    'primary' => 'bg-brand-600 text-white hover:bg-brand-700 focus-visible:outline-brand-500 shadow-sm',
+    'secondary' => 'bg-white text-gray-800 border-2 border-gray-300 hover:bg-gray-50 focus-visible:outline-brand-500',
+    'ghost' => 'bg-transparent text-gray-700 hover:bg-gray-100 focus-visible:outline-brand-500',
+];
+@endphp
+
+<a href="{{ $href }}" {{ $attributes->merge(['class' => "$base {$sizes[$size]} {$variants[$variant]}"]) }}>
+    {{ $slot }}
+</a>

@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Primary brand blue — used for primary actions, links, focus rings */
+    --color-brand-50: #eff6ff;
+    --color-brand-100: #dbeafe;
+    --color-brand-200: #bfdbfe;
+    --color-brand-300: #93c5fd;
+    --color-brand-400: #60a5fa;
+    --color-brand-500: #3b82f6;
+    --color-brand-600: #2563eb;
+    --color-brand-700: #1d4ed8;
+    --color-brand-800: #1e40af;
+    --color-brand-900: #1e3a8a;
+
+    /* Status colors — match PRD status matrix exactly (Bab 9) */
+    --color-status-submitted: #3b82f6;
+    --color-status-review: #f59e0b;
+    --color-status-rejected: #ef4444;
+    --color-status-approved: #10b981;
+    --color-status-expired: #9ca3af;
+}
+
+/* Boomer-friendly baseline: larger default type, generous line-height, visible focus */
+html {
+    font-size: 18px;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+}
+
+*:focus-visible {
+    outline: 3px solid var(--color-brand-500);
+    outline-offset: 2px;
+}
