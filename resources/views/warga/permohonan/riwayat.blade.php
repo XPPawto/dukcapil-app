@@ -1,4 +1,4 @@
-<x-layouts.app title="Riwayat Permohonan" :namaWarga="session('warga_nama', 'Warga')">
+<x-layouts.app title="Riwayat Permohonan">
     <div class="mb-8">
         <h1 class="text-3xl font-extrabold text-gray-900">Riwayat Permohonan</h1>
         <p class="mt-2 text-lg text-gray-600">Pantau status seluruh permohonan Anda di sini.</p>
@@ -26,16 +26,16 @@
             <x-card class="p-5 sm:p-6">
                 <div class="flex flex-col sm:flex-row sm:items-center gap-4">
                     <div class="flex-1 min-w-0">
-                        <p class="text-lg font-bold text-gray-900">{{ $item['service_type'] }}</p>
-                        <p class="text-base text-gray-500 mt-0.5">No. Tiket: <span class="font-mono">{{ $item['ticket_number'] }}</span></p>
-                        <p class="text-base text-gray-500">Diajukan: {{ $item['created_at'] }}</p>
+                        <p class="text-lg font-bold text-gray-900">{{ $item->serviceLabel() }}</p>
+                        <p class="text-base text-gray-500 mt-0.5">No. Tiket: <span class="font-mono">{{ $item->ticket_number }}</span></p>
+                        <p class="text-base text-gray-500">Diajukan: {{ $item->created_at->translatedFormat('d M Y, H.i') }}</p>
                     </div>
-                    <x-status-badge :status="$item['status']" />
-                    <x-link-button :href="route('warga.permohonan.detail', $item['ticket_number'])" variant="secondary" size="md">Lihat Detail</x-link-button>
+                    <x-status-badge :status="$item->status" />
+                    <x-link-button :href="route('warga.permohonan.detail', $item->ticket_number)" variant="secondary" size="md">Lihat Detail</x-link-button>
                 </div>
-                @if($item['status'] === 'REJECTED' && $item['catatan'])
+                @if($item->status === 'REJECTED' && $item->note)
                     <div class="mt-4 pt-4 border-t border-gray-100 text-base text-red-700 bg-red-50 rounded-lg p-3">
-                        <strong>Catatan Petugas:</strong> {{ $item['catatan'] }}
+                        <strong>Catatan Petugas:</strong> {{ $item->note }}
                     </div>
                 @endif
             </x-card>

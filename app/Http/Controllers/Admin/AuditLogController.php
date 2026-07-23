@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Support\DemoData;
+use App\Models\AuditLog;
 use Illuminate\Support\Facades\Auth;
 
 class AuditLogController extends Controller
@@ -13,7 +13,7 @@ class AuditLogController extends Controller
         abort_unless(Auth::guard('admin')->user()->role === 'super_admin', 403);
 
         return view('admin.audit-logs.index', [
-            'logs' => DemoData::auditLogs(),
+            'logs' => AuditLog::latest()->paginate(30),
         ]);
     }
 }

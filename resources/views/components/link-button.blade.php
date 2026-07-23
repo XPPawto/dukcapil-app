@@ -13,6 +13,7 @@ $variants = [
     'primary' => 'bg-brand-600 text-white hover:bg-brand-700 focus-visible:outline-brand-500 shadow-sm',
     'secondary' => 'bg-white text-gray-800 border-2 border-gray-300 hover:bg-gray-50 focus-visible:outline-brand-500',
     'ghost' => 'bg-transparent text-gray-700 hover:bg-gray-100 focus-visible:outline-brand-500',
+    'success' => 'bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:outline-emerald-500 shadow-sm',
 ];
 @endphp
 

@@ -1,4 +1,3 @@
-@php use App\Support\DemoData; @endphp
 <x-layouts.admin title="Verifikasi Pengajuan" :namaAdmin="auth('admin')->user()->name" :roleAdmin="auth('admin')->user()->role">
     <div class="mb-8">
         <h1 class="text-3xl font-extrabold text-gray-900">Verifikasi Pengajuan</h1>
@@ -39,14 +38,14 @@
                 <tbody class="divide-y divide-gray-100">
                     @forelse($submissions as $item)
                         <tr class="text-base hover:bg-gray-50">
-                            <td class="px-5 py-4 font-mono text-gray-700">{{ $item['ticket_number'] }}</td>
-                            <td class="px-5 py-4 font-semibold text-gray-900">{{ $item['nama_pemohon'] }}</td>
-                            <td class="px-5 py-4 text-gray-600 font-mono">{{ DemoData::maskNik($item['nik']) }}</td>
-                            <td class="px-5 py-4 text-gray-600">{{ $item['service_type'] }}</td>
-                            <td class="px-5 py-4 text-gray-500">{{ $item['created_at'] }}</td>
-                            <td class="px-5 py-4"><x-status-badge :status="$item['status']" /></td>
+                            <td class="px-5 py-4 font-mono text-gray-700">{{ $item->ticket_number }}</td>
+                            <td class="px-5 py-4 font-semibold text-gray-900">{{ $item->citizen->full_name }}</td>
+                            <td class="px-5 py-4 text-gray-600 font-mono">{{ $item->citizen->maskedNik() }}</td>
+                            <td class="px-5 py-4 text-gray-600">{{ $item->serviceLabel() }}</td>
+                            <td class="px-5 py-4 text-gray-500">{{ $item->created_at->translatedFormat('d M Y, H.i') }}</td>
+                            <td class="px-5 py-4"><x-status-badge :status="$item->status" /></td>
                             <td class="px-5 py-4">
-                                <x-link-button :href="route('admin.verifikasi.show', $item['ticket_number'])" variant="secondary" size="md">Proses</x-link-button>
+                                <x-link-button :href="route('admin.verifikasi.show', $item->ticket_number)" variant="secondary" size="md">Proses</x-link-button>
                             </td>
                         </tr>
                     @empty

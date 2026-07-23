@@ -1,4 +1,4 @@
-<x-layouts.app title="Profil Saya" :namaWarga="session('warga_nama', 'Warga')">
+<x-layouts.app title="Profil Saya">
     <div class="mb-8">
         <h1 class="text-3xl font-extrabold text-gray-900">Profil Saya</h1>
         <p class="mt-2 text-lg text-gray-600">Lihat dan kelola data akun Anda.</p>
@@ -11,7 +11,7 @@
                     {{ strtoupper(substr($profil['nama'], 0, 1)) }}
                 </div>
                 <p class="mt-4 text-xl font-bold text-gray-900">{{ $profil['nama'] }}</p>
-                <p class="text-base text-gray-500">Login ID: {{ $profil['login_id'] }}</p>
+                <p class="text-base text-gray-500">NIK: {{ $profil['nik'] }}</p>
             </x-card>
         </div>
 
@@ -24,10 +24,6 @@
                         <dd class="font-semibold text-gray-900 mt-0.5">{{ $profil['nama'] }}</dd>
                     </div>
                     <div>
-                        <dt class="text-gray-500">Login ID</dt>
-                        <dd class="font-semibold text-gray-900 mt-0.5">{{ $profil['login_id'] }}</dd>
-                    </div>
-                    <div>
                         <dt class="text-gray-500">NIK</dt>
                         <dd class="font-semibold text-gray-900 mt-0.5">{{ $profil['nik'] }}</dd>
                     </div>
@@ -37,7 +33,7 @@
                     </div>
                 </dl>
                 <x-alert type="info">
-                    Nama, Login ID, dan NIK tidak dapat diubah sendiri. Jika ada kesalahan data, silakan datang ke kantor pelayanan.
+                    Nama dan NIK tidak dapat diubah sendiri. Jika ada kesalahan data, silakan datang ke kantor pelayanan.
                 </x-alert>
             </x-card>
 

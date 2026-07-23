@@ -1,7 +1,7 @@
-<x-layouts.app title="Beranda" :namaWarga="session('warga_nama', 'Warga')">
+<x-layouts.app title="Beranda">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-            <h1 class="text-3xl font-extrabold text-gray-900">Selamat Datang, {{ session('warga_nama', 'Warga') }}</h1>
+            <h1 class="text-3xl font-extrabold text-gray-900">Selamat Datang, {{ auth('citizen')->user()->full_name }}</h1>
             <p class="mt-2 text-lg text-gray-600">Berikut ringkasan permohonan Anda.</p>
         </div>
         <x-link-button :href="route('warga.permohonan.pilih')" size="lg">
@@ -34,11 +34,11 @@
         @forelse($submissions as $item)
             <x-card class="p-5 flex flex-col sm:flex-row sm:items-center gap-4">
                 <div class="flex-1 min-w-0">
-                    <p class="text-lg font-bold text-gray-900">{{ $item['service_type'] }}</p>
-                    <p class="text-base text-gray-500 mt-0.5">No. Tiket: {{ $item['ticket_number'] }} &middot; {{ $item['created_at'] }}</p>
+                    <p class="text-lg font-bold text-gray-900">{{ $item->serviceLabel() }}</p>
+                    <p class="text-base text-gray-500 mt-0.5">No. Tiket: {{ $item->ticket_number }} &middot; {{ $item->created_at->translatedFormat('d M Y, H.i') }}</p>
                 </div>
-                <x-status-badge :status="$item['status']" />
-                <a href="{{ route('warga.permohonan.detail', $item['ticket_number']) }}" class="text-base font-semibold text-brand-700 hover:underline whitespace-nowrap">Lihat Detail</a>
+                <x-status-badge :status="$item->status" />
+                <a href="{{ route('warga.permohonan.detail', $item->ticket_number) }}" class="text-base font-semibold text-brand-700 hover:underline whitespace-nowrap">Lihat Detail</a>
             </x-card>
         @empty
             <x-card class="p-8 text-center text-gray-500 text-lg">Belum ada permohonan.</x-card>

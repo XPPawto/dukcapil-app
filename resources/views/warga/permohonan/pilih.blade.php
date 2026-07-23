@@ -1,4 +1,4 @@
-<x-layouts.app title="Ajukan Permohonan" :namaWarga="session('warga_nama', 'Warga')">
+<x-layouts.app title="Ajukan Permohonan">
     <div class="mb-8">
         <h1 class="text-3xl font-extrabold text-gray-900">Pilih Jenis Layanan</h1>
         <p class="mt-2 text-lg text-gray-600">Pilih dokumen yang ingin Anda ajukan.</p>

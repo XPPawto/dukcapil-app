@@ -1,0 +1,64 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: dukcapil-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+      - dukcapil-node-modules:/var/www/html/node_modules
+    env_file:
+      - .env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - dukcapil
+
+  mysql:
+    image: mysql:8.0
+    container_name: dukcapil-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: dukcapil_app
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - dukcapil-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-psecret"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - dukcapil
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: dukcapil-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: secret
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - dukcapil
+
+volumes:
+  dukcapil-mysql-data:
+  dukcapil-node-modules:
+
+networks:
+  dukcapil:
+    driver: bridge

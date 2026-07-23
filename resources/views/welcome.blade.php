@@ -21,7 +21,7 @@
                     <x-link-button :href="route('login')" variant="secondary" size="lg">Saya Sudah Punya Akun</x-link-button>
                 </div>
                 <p class="mt-6 text-base text-gray-500">
-                    Sudah melayani warga Palembang, Plaju, dan Banyuasin&ndash;Mariana.
+                    Khusus melayani warga Kecamatan Plaju dan Seberang Ulu II, Kota Palembang.
                 </p>
             </div>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Admin;
+use App\Models\Citizen;
 use App\Models\User;
 
 return [
@@ -48,6 +49,11 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'citizen' => [
+            'driver' => 'session',
+            'provider' => 'citizens',
+        ],
     ],
 
     /*
@@ -81,6 +87,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => Admin::class,
+        ],
+
+        'citizens' => [
+            'driver' => 'eloquent',
+            'model' => Citizen::class,
         ],
     ],
 

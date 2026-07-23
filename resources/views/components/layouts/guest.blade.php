@@ -18,7 +18,7 @@
             <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid gap-8 sm:grid-cols-3">
                 <div>
                     <x-app-logo dark />
-                    <p class="mt-3 text-base text-gray-400">Layanan mandiri dokumen kependudukan untuk warga Palembang, Plaju, dan Banyuasin–Mariana.</p>
+                    <p class="mt-3 text-base text-gray-400">Layanan mandiri dokumen kependudukan untuk warga Kecamatan Plaju dan Seberang Ulu II, Kota Palembang.</p>
                 </div>
                 <div>
                     <h3 class="text-white font-semibold text-lg mb-3">Butuh Bantuan?</h3>
@@ -29,7 +29,7 @@
                     <h3 class="text-white font-semibold text-lg mb-3">Tautan</h3>
                     <ul class="space-y-2 text-base text-gray-400">
                         <li><a href="{{ route('lupa-password') }}" class="hover:text-white">Lupa Password?</a></li>
-                        <li><a href="{{ route('admin.login') }}" class="hover:text-white">Masuk sebagai Petugas</a></li>
+                        <li><a href="{{ route('login') }}" class="hover:text-white">Masuk sebagai Petugas</a></li>
                     </ul>
                 </div>
             </div>

@@ -19,7 +19,7 @@
                     <x-label for="nama_lengkap" required>Nama Lengkap</x-label>
                     <x-input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}"
                         placeholder="Contoh: Suratno Wijaya" required :error="$errors->first('nama_lengkap')" />
-                    <x-help-text>Sesuai nama pada KTP. Login ID Anda akan dibuat otomatis dari nama ini.</x-help-text>
+                    <x-help-text>Sesuai nama pada KTP.</x-help-text>
                     <x-input-error :message="$errors->first('nama_lengkap')" />
                 </div>
 
@@ -27,7 +27,7 @@
                     <x-label for="nik" required>Nomor Induk Kependudukan (NIK)</x-label>
                     <x-input type="text" inputmode="numeric" maxlength="16" id="nik" name="nik" value="{{ old('nik') }}"
                         placeholder="16 digit angka pada KTP" required :error="$errors->first('nik')" />
-                    <x-help-text>Hanya untuk warga wilayah Sumatera Selatan (Palembang, Plaju, Banyuasin–Mariana).</x-help-text>
+                    <x-help-text>Hanya untuk warga Kecamatan Plaju dan Seberang Ulu II, Kota Palembang.</x-help-text>
                     <x-input-error :message="$errors->first('nik')" />
                 </div>
 

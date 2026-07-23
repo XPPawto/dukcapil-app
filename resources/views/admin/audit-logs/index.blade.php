@@ -1,3 +1,10 @@
+@php
+$actionLabels = [
+    'reset_password' => 'Reset Password',
+    'unlock_account' => 'Buka Kunci Akun',
+    'update_submission_status' => 'Ubah Status Pengajuan',
+];
+@endphp
 <x-layouts.admin title="Audit Log" :namaAdmin="auth('admin')->user()->name" :roleAdmin="auth('admin')->user()->role">
     <div class="mb-8">
         <h1 class="text-3xl font-extrabold text-gray-900">Audit Log</h1>
@@ -17,17 +24,23 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    @foreach($logs as $log)
+                    @forelse($logs as $log)
                         <tr class="text-base hover:bg-gray-50">
-                            <td class="px-5 py-4 font-semibold text-gray-900">{{ $log['aktor'] }}</td>
-                            <td class="px-5 py-4 text-gray-700">{{ $log['aksi'] }}</td>
-                            <td class="px-5 py-4 text-gray-600">{{ $log['target'] }}</td>
-                            <td class="px-5 py-4 text-gray-500">{{ $log['waktu'] }}</td>
-                            <td class="px-5 py-4 text-gray-500 font-mono">{{ $log['ip'] }}</td>
+                            <td class="px-5 py-4 font-semibold text-gray-900">{{ $log->actor_name }}</td>
+                            <td class="px-5 py-4 text-gray-700">{{ $actionLabels[$log->action] ?? $log->action }}</td>
+                            <td class="px-5 py-4 text-gray-600">{{ $log->target_label }}</td>
+                            <td class="px-5 py-4 text-gray-500">{{ $log->created_at->translatedFormat('d M Y, H.i') }} WIB</td>
+                            <td class="px-5 py-4 text-gray-500 font-mono">{{ $log->ip_address }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr><td colspan="5" class="px-5 py-10 text-center text-gray-500 text-lg">Belum ada aktivitas tercatat.</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </x-card>
+
+    <div class="mt-6">
+        {{ $logs->links() }}
+    </div>
 </x-layouts.admin>

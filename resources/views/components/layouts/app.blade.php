@@ -13,7 +13,7 @@
                     </nav>
 
                     <div class="hidden md:flex items-center gap-3">
-                        <span class="text-base text-gray-600">Halo, <span class="font-semibold text-gray-900">{{ $namaWarga ?? 'Warga' }}</span></span>
+                        <span class="text-base text-gray-600">Halo, <span class="font-semibold text-gray-900">{{ auth('citizen')->user()->full_name }}</span></span>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-button type="submit" variant="ghost" size="md">Keluar</x-button>

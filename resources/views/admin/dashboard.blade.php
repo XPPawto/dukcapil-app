@@ -42,13 +42,13 @@
                 <tbody class="divide-y divide-gray-100">
                     @foreach($terbaru as $item)
                         <tr class="text-base">
-                            <td class="px-2 py-4 font-mono text-gray-700">{{ $item['ticket_number'] }}</td>
-                            <td class="px-2 py-4 font-semibold text-gray-900">{{ $item['nama_pemohon'] }}</td>
-                            <td class="px-2 py-4 text-gray-600">{{ $item['service_type'] }}</td>
-                            <td class="px-2 py-4 text-gray-500">{{ $item['created_at'] }}</td>
-                            <td class="px-2 py-4"><x-status-badge :status="$item['status']" /></td>
+                            <td class="px-2 py-4 font-mono text-gray-700">{{ $item->ticket_number }}</td>
+                            <td class="px-2 py-4 font-semibold text-gray-900">{{ $item->citizen->full_name }}</td>
+                            <td class="px-2 py-4 text-gray-600">{{ $item->serviceLabel() }}</td>
+                            <td class="px-2 py-4 text-gray-500">{{ $item->created_at->translatedFormat('d M Y, H.i') }}</td>
+                            <td class="px-2 py-4"><x-status-badge :status="$item->status" /></td>
                             <td class="px-2 py-4">
-                                <a href="{{ route('admin.verifikasi.show', $item['ticket_number']) }}" class="font-semibold text-brand-700 hover:underline">Proses</a>
+                                <a href="{{ route('admin.verifikasi.show', $item->ticket_number) }}" class="font-semibold text-brand-700 hover:underline">Proses</a>
                             </td>
                         </tr>
                     @endforeach
